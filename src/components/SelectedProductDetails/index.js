@@ -12,7 +12,7 @@ export default function SelectedProductDetails({
   };
 
   return (
-    <div className="bg-gray-100 p-5 rounded-xl space-y-4">
+    <div className="bg-gray-100 p-5 rounded-xl mt-6 space-y-4">
       <h2 className="text-2xl font-bold">Selected Products</h2>
       {product.map((p) => (
         <div

@@ -105,15 +105,15 @@ export default function ProductPage() {
       description: "Professional performance for developers.",
       reviews: [
         {
-          user: "Alex",
-          comment: "Battery life is insane.",
+          user: "Mike",
+          comment: "Excellent Sound Performance",
         },
       ],
-      image: "/headphone.png",
+      image: "/headphone.avif",
     },
   ]);
 
-  const [selectedProduct, setSelectedProduct] = useState([]); // Because of selecting Multiple products, if you give null then the prev function on handle select will not work                                                            // Handle delete will not work
+  const [selectedProduct, setSelectedProduct] = useState([]); // Because of selecting Multiple products, if you give null then the prev function on handleSelect will not work                                                            // Handle delete will not work
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
@@ -121,7 +121,7 @@ export default function ProductPage() {
   const [nextId, setNextId] = useState(3);
   const [cart, setCart] = useState([]);
 
-  SELECT;
+  // SELECT
   // const handleSelect = (product) => {
   //   setSelectedProduct((prev) => [...prev, product]);
   // };
@@ -135,7 +135,6 @@ export default function ProductPage() {
           p.id === selectedProduct.id ? { ...p, quantity: p.quantity + 1 } : p,
         );
       }
-
       return [...prev, { ...selectedProduct, quantity: 1 }];
     });
   };
@@ -217,21 +216,21 @@ export default function ProductPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-gray-50 p-7">
+      <div className="mx-auto">
         {/* HEADER */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col items-center justify-around mb-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">
-              Product Manager
+              Electronic Accessories
             </h1>
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-sm text-center text-gray-400 mt-1 mb-4">
               {products.length} products total
             </p>
           </div>
           <button
             onClick={() => setShowAddForm(!showAddForm)}
-            className="flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-800 transition-colors cursor-pointer"
+            className="flex items-center gap-2 bg-[#22c55e] hover:bg-[#20a14f] text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors cursor-pointer"
           >
             {showAddForm ? "✕ Cancel" : "+ Add Product"}
           </button>
@@ -244,13 +243,13 @@ export default function ProductPage() {
           />
         )}
         {/* SEARCH + FILTER ROW */}
-        <div className="flex gap-3 mb-5">
+        <div className="flex justify-center items-center gap-3 mb-5">
           <input
             type="text"
             placeholder="Search products..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-gray-400 bg-white"
+            className="w-1/3 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-gray-400 bg-white"
           />
           <select
             value={categoryFilter}
@@ -272,21 +271,23 @@ export default function ProductPage() {
             </div>
           )}
 
-          {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              handleAddToCart={handleAddToCart}
-              product={product}
-              onSelect={handleSelect}
-              onDelete={handleDelete}
-              onEdit={handleEdit}
-              onRate={handleRate}
-              onSaveEdit={handleSaveEdit}
-              onCancelEdit={handleCancelEdit}
-              isEditing={editingId === product.id}
-              isSelected={selectedProduct?.id === product.id}
-            />
-          ))}
+          <div className="grid grid-cols-3 gap-5">
+            {filteredProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                handleAddToCart={handleAddToCart}
+                product={product}
+                onSelect={handleSelect}
+                onDelete={handleDelete}
+                onEdit={handleEdit}
+                onRate={handleRate}
+                onSaveEdit={handleSaveEdit}
+                onCancelEdit={handleCancelEdit}
+                isEditing={editingId === product.id}
+                isSelected={selectedProduct?.id === product.id}
+              />
+            ))}
+          </div>
         </div>
         {/* SELECTED PRODUCT DETAIL PANEL */}
         {selectedProduct && (
@@ -297,12 +298,6 @@ export default function ProductPage() {
             onDelete={handleDelete}
           />
         )}
-        {/* {cart.map((item) => (
-          <div key={item.id}>
-            <h1>{item.title}</h1>
-            <p>Quantity: {item.quantity}</p>
-          </div>
-        ))}; */}
       </div>
     </div>
   );
