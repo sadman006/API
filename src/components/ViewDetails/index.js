@@ -7,7 +7,7 @@ export default function ViewDetails({ product }) {
         <Image
           src={product.image}
           alt={product.logo}
-          width={500}
+          width={600}
           height={500}
           className="mx-auto"
         />

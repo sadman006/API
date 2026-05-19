@@ -121,7 +121,7 @@ export default function ProductPage() {
   const [nextId, setNextId] = useState(3);
   const [cart, setCart] = useState([]);
 
-  // SELECT
+  SELECT;
   // const handleSelect = (product) => {
   //   setSelectedProduct((prev) => [...prev, product]);
   // };
