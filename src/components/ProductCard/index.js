@@ -14,13 +14,15 @@ export default function ProductCard({ product, onSelect }) {
       <p>Price: ${price}</p>
 
       <div className="mt-3">
-        <Image
-          src={image}
-          alt="image"
-          width={800}
-          height={800}
-          className="rounded-2xl"
-        />
+        {image && (
+          <Image
+            src={image}
+            alt="image"
+            width={800}
+            height={800}
+            className="rounded-2xl"
+          />
+        )}
       </div>
 
       <div className="flex justify-center items-center w-fit gap-2">

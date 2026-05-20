@@ -168,6 +168,7 @@ export default function ProductPage() {
     setProducts([...products, productWithId]);
     setNextId(nextId + 1);
     setShowAddForm(false);
+    console.log(newProduct);
   };
 
   // EDIT / SAVE
@@ -222,7 +223,7 @@ export default function ProductPage() {
         <div className="flex flex-col items-center justify-around mb-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">
-              Electronic Accessories
+              E-Commerce Platform
             </h1>
             <p className="text-sm text-center text-gray-400 mt-1 mb-4">
               {products.length} products total

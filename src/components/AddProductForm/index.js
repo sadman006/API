@@ -1,16 +1,62 @@
 "use client";
 import { useState } from "react";
-
+import Image from "next/image";
 export default function AddProductForm({ onAdd, onCancel }) {
   const [formData, setFormData] = useState({
     title: "",
     price: "",
     category: "Mobile",
     stock: "in",
+    image: "",
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Handle image upload
+  // const handleImageChange = (e) => {
+  //   const file = e.target.file[0];
+
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setFormData({
+  //         ...formData,
+  //         image: reader.result,
+  //       });
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const allowedTypes = [
+        "image/png",
+        "image/jpeg",
+        "image/jpg",
+        "image/jfif",
+      ];
+
+      if (!allowedTypes.includes(file.type)) {
+        alert("Only PNG, JPG, JPEG, JFIF files are allowed");
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          image: reader.result,
+        });
+      };
+
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = () => {
@@ -22,6 +68,7 @@ export default function AddProductForm({ onAdd, onCancel }) {
       price: parseFloat(formData.price),
       category: formData.category,
       stock: formData.stock,
+      image: formData.image,
     });
   };
 
@@ -64,7 +111,7 @@ export default function AddProductForm({ onAdd, onCancel }) {
             <option>Mobile</option>
             <option>Laptop</option>
             <option>Audio</option>
-            <option>Accessory</option>
+            <option>Vehicle</option>
           </select>
         </div>
         <div>
@@ -82,6 +129,31 @@ export default function AddProductForm({ onAdd, onCancel }) {
         </div>
       </div>
 
+      {/* Image Upload */}
+      <div className="col-span-2">
+        <label className="text-xs text-gray-500 mb-1 block">
+          Product Image
+        </label>
+        <input
+          type="file"
+          accept=".png, .jpg, .jpeg, .jfif"
+          onChange={handleImageChange}
+          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm cursor-pointer"
+        />
+      </div>
+
+      {/* Preview */}
+      {formData.image && (
+        <div className="col-span-2">
+          <Image
+            src={formData.image}
+            alt="Preview"
+            width={100}
+            height={100}
+            className="object-cover rounded-lg border"
+          />
+        </div>
+      )}
       <div className="flex gap-2 mt-4">
         <button
           onClick={handleSubmit}
